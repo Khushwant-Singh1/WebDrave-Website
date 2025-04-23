@@ -3,10 +3,27 @@ import '../assets/react.svg';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  // Handle scroll event to change navbar background
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   // Close the sidebar when clicking outside
   useEffect(() => {
@@ -45,7 +62,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 w-full bg-[#070707] z-50 shadow-md">
+      <nav className={`fixed top-0 left-0 w-full z-50 shadow-md transition-all duration-300 ${isScrolled ? 'bg-[#070707]' : 'bg-transparent'}`}>
         <div className="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
           {/* Logo */}
           <div>
