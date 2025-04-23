@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Spline from '@splinetool/react-spline'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div
+        className="spline-wrapper"
+        style={{
+          height: '100vh',
+          width: '100vw',
+          backgroundColor: 'black',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          paddingRight: '20px',
+          boxSizing: 'border-box',
+          overflow: 'hidden',
+        }}
+      >
+        <div className="spline-container">
+          <Spline scene="https://prod.spline.design/dBgM7heoEmjDSdB7/scene.splinecode" />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <style>
+        {`
+          .spline-container {
+            width: 100%;
+            height: 100%;
+            max-width: 700px;
+            transition: transform 0.3s ease;
+          }
+
+          @media (max-width: 768px) {
+            .spline-wrapper {
+              justify-content: center !important;
+              padding-right: 0 !important;
+            }
+
+            .spline-container {
+              transform: scale(0.8);
+              transform-origin: center;
+              max-width: 90vw;
+              height: 70vh;
+            }
+          }
+
+          @media (max-width: 480px) {
+            .spline-container {
+              transform: scale(0.65);
+              height: 60vh;
+            }
+          }
+        `}
+      </style>
     </>
   )
 }
-
-export default App
